@@ -8,7 +8,7 @@ def load_model(model_id,prefix="model_",dir="checkpoints"):
         model = torch.load(model_file)
     else:
         print("Model not Found")
-        policy_est=None
+        model=None
     return model
 
 def evaluate_model(pred_labels, true_labels):
