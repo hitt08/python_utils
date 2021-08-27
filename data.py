@@ -23,13 +23,11 @@ def write(file_path,data,mode="w"):
     with open(file_path,mode) as f:
         if type(data)==list:
             for line in data:
-                f.write(line)
+                f.write(str(line))
                 f.write('\n')
-        elif type(data)==str:
-            f.write(data)
-            f.write('\n')
         else:
-            raise TypeError
+            f.write(str(data))
+            f.write('\n')
 
 def read_json_dump(url):
     data = []
