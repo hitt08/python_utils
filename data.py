@@ -19,6 +19,18 @@ def read(file_path):
     return lines
 
 
+def write(file_path,data,mode="w"):
+    with open(file_path,mode) as f:
+        if type(data)==list:
+            for line in data:
+                f.write(line)
+                f.write('\n')
+        elif type(data)==str:
+            f.write(data)
+            f.write('\n')
+        else:
+            raise TypeError
+
 def read_json_dump(url):
     data = []
     with open(url) as fl:
@@ -36,8 +48,8 @@ def write_json_dump(url, data,mode="w"):
     f.close()
 
 
-def write_dict(url, data, sep="~|~"):
-    f = open(url, 'w')
+def write_dict(url, data, sep="~|~", mode="w"):
+    f = open(url, mode)
     for k, v in data.items():
         f.write(f"{k}{sep}{v}")
         f.write('\n')
