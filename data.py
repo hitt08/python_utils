@@ -2,11 +2,31 @@ import json
 import gzip
 
 
-def read_json(url):
-    data = []
-    with open(url) as fl:
-        data.append(json.loads(fl.read()))
-    return data
+def write_json(url, data,mode="wb",compress=False):
+    if compress:
+        f = gzip.open(url+".gz", mode) #Write in write/append mode
+    else:
+        f = open(url, mode) #Write in write/append mode
+    out_data = json.dumps(data)
+    if compress:
+        out_data=out_data.encode()
+    f.write(out_data)
+    f.close()
+
+def read_json(url,compress=False):
+    if compress:
+        f = gzip.open(url, "rb")
+    else:
+        f = open(url, "r")
+    out_data = json.loads(f.read())
+    f.close()
+    return out_data
+
+# def read_json(url):
+#     data = []
+#     with open(url) as fl:
+#         data.append(json.loads(fl.read()))
+#     return data
 
 
 def read(file_path):
@@ -62,7 +82,6 @@ def read_dict(url, sep="~|~"):
             res[k.strip()] = v.strip()
         fl.close()
     return res
-
 
 def get_data_split(doc_ids,doc_labels,collection):
     data,labels = [],[]
